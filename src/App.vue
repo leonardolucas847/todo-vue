@@ -1,5 +1,8 @@
 <script setup>
   import { reactive } from 'vue';
+  import Headerv from './components/Headerv.vue';
+  import Formv from './components/Formv.vue';
+  import ListTasks from './components/ListTasks.vue';
   const estado = reactive({
     filtro : 'Todas',
     tarefaTemporaria: '',
@@ -47,37 +50,11 @@
 
 <template>
   <div class="container">
-    <header class="p-5 mb-4 mt-4 mb-light rounded-3">
-      <h1>Minhas tarefas</h1>
-      <p>
-        Você possui {{ getTarefasPendentes().length }} tarefas pendentes
-      </p>
-    </header>
-    <form @submit.prevent="cadastraTarefa()">
-      <div class="row">
-        <div class="col">
-          <input :value="estado.tarefaTemporaria" type="text" @change="evento => estado.tarefaTemporaria = evento.target.value" required placeholder="Digite a descrição da tarefa" class="form-crontrol">
-        </div>
-        <div class="col-md-2">
-          <button type="submit" class="btn btn-primary">Cadastrar</button>
-        </div>
-        <div class="col-md-2">
-          <select @change="evento => estado.filtro = evento.target.value" class="form-control">
-            <option value="Todas">Todas Tarefas</option>
-            <option value="pendentes">Pendentes</option>
-            <option value="finalizadas">Finalizadas</option>
-          </select>
-        </div>
-      </div>
-    </form>
-    <ul class="list-group mt-4">
-      <li class="list-group-item" v-for="tarefa in getTarefasFriltradas()">
-        <input  @change="evento => tarefa.finalizada = evento.target.checked" :checked="tarefa.finalizada" :id="tarefa.titulo" type="checkbox">
-        <label :class="{ done: tarefa.finalizada}" class="ms-3" :for="tarefa.titulo">
-          {{ tarefa.titulo }}
-        </label>
-      </li>
-    </ul>
+    <Headerv />
+    <Formv />
+    <ListTasks />
+    
+
   </div>
 </template>
 
